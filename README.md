@@ -9,15 +9,7 @@ A little game I made in love2D to practice programming.
 - d = down
 
 ## Future Plans
-1. Power ups
-  - [ ] Small Paddle
-  - [ ] Slow Paddle
-  - [ ] Quick ball
-  - [ ] Small ball
-  - [ ] Large ball
-  - [ ] Multiball
-
-2. Better game feel
+- Better game feel
   - [x] Add velocity ramp up for movement
   - [ ] Add particles for paddles and ball
   - [ ] Add gameover screen
