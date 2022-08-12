@@ -9,15 +9,19 @@ function Ball:load()
 	self.x = love.graphics.getWidth() / 2
 	self.y = love.graphics.getHeight() / 2
 	self.img = love.graphics.newImage("assets/ball.png")
+	self.img_red = love.graphics.newImage("assets/fire_ball.png")
 	self.width = self.img:getWidth()
 	self.height = self.img:getHeight()
 	self.speed = 200
 	self.vx = -self.speed
 	self.vy = 0
+	self.on_fire = false
 	self.plink = love.audio.newSource("assets/sounds/plink.ogg", "static")
 	self.paddle_plink = love.audio.newSource("assets/sounds/paddle_plink.ogg", "static")
 	self.score_player = love.audio.newSource("assets/sounds/score_player.ogg", "static")
 	self.score_ai = love.audio.newSource("assets/sounds/score_ai.ogg", "static")
+	self.catch_fire = love.audio.newSource("assets/sounds/catch_fire.ogg", "static")
+	self.flaming = love.audio.newSource("assets/sounds/flaming.ogg", "static")
 end
 
 function Ball:update(dt)
@@ -79,14 +83,23 @@ end
 
 function Ball:score()
 	if self.x < -20 then
-        	self:reset(1)
 		self.score_ai:play()
-		Score.ai = Score.ai + 1
+		if self.on_fire then
+			Score.ai = Score.ai + 2
+		else
+			Score.ai = Score.ai + 1
+		end
+		self:reset(1)
 	end
         if self.x > love.graphics.getWidth() + 5 then
-        	self:reset(-1)
-		Score.player = Score.player + 1
 		self.score_player:play()
+		if self.on_fire then
+                        Score.player = Score.player + 2
+                else
+                        Score.player = Score.player + 1
+                end
+		self:reset(-1)
+
 	end	
 end
 
@@ -96,8 +109,20 @@ function Ball:reset(mod)
 	self.x = love.graphics.getWidth() / 2 - self.width / 2
         self.y = love.graphics.getHeight() / 2 - self.height
         self.vx = self.speed * mod
+	self.on_fire = false
 end
 
 function Ball:draw()
-	love.graphics.draw(self.img, self.x, self.y)
+	if self.speed >= 1000 then
+		love.graphics.draw(self.img_red, self.x, self.y)
+		if not self.on_fire then
+			self.catch_fire:play()
+			self.on_fire = true
+		end
+		self.flaming:setLooping(true)
+		self.flaming:play()
+	else
+		love.graphics.draw(self.img, self.x, self.y)
+		self.flaming:stop()
+	end
 end

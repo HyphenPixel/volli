@@ -19,12 +19,20 @@ function Game:load()
         AI:load()
 	beam_top = love.graphics.newImage("assets/beam_top.png")
 	beam_bottom = love.graphics.newImage("assets/beam_bottom.png")
-
+	
+	music_playing = false
+	Music = love.audio.newSource("assets/sounds/main_theme.ogg", "stream")
         Score = {player = 0, ai = 0}
         font = love.graphics.newFont("assets/fonts/pixel.ttf", 30)
 end
 
 function Game:update(dt)
+	if not music_playing then
+		Music:setVolume(0.4)
+		Music:setLooping(true)
+		Music:play()
+		music_playing = true
+	end
 	Particle:update(dt)
         Background:update(dt)
         Player:update(dt)

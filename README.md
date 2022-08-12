@@ -1,6 +1,6 @@
-# Volli
+# Love2D Pong
 
-![volli](box_art.png)
+![pong](box_art.png)
 
 A little game I made in love2D to practice programming.
 
@@ -18,7 +18,7 @@ A little game I made in love2D to practice programming.
   - [ ] Multiball
 
 2. Better game feel
-  - [x] Add velocity ramp up for movement
+  - [ ] Add velocity ramp up for movement
   - [ ] Add particles for paddles and ball
   - [ ] Add gameover screen
   - [ ] Screen transitions
