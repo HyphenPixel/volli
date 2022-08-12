@@ -14,8 +14,8 @@ function Player:load()
 	self.speed = 500
 	
 	-- ! maybe move joystick code to different file
-	game_pads = love.joystick.getJoysticks()
-	game_pad = game_pads[1]
+	--game_pads = love.joystick.getJoysticks()
+	--game_pad = game_pads[1]
 end
 
 function Player:update(dt)
@@ -26,10 +26,10 @@ end
 function Player:move(dt)
 	local button_pressed = false
 
-	if love.keyboard.isDown("w") or game_pad:isGamepadDown("dpup") then
+	if love.keyboard.isDown("w") then
 		button_pressed = true
                 self.dy = -self.speed
-        elseif love.keyboard.isDown("s") or game_pad:isGamepadDown("dpdown") then
+        elseif love.keyboard.isDown("s") then
 		button_pressed = true
                 self.dy = self.speed
 	else
