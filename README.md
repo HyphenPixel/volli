@@ -1,6 +1,6 @@
-# Love2D Pong
+# Volli
 
-![pong](box_art.png)
+![volli box art](box_art.png)
 
 A little game I made in love2D to practice programming.
 
