@@ -18,7 +18,7 @@ A little game I made in love2D to practice programming.
   - [ ] Multiball
 
 2. Better game feel
-  - [ ] Add velocity ramp up for movement
+  - [x] Add velocity ramp up for movement
   - [ ] Add particles for paddles and ball
   - [ ] Add gameover screen
   - [ ] Screen transitions
