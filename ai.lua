@@ -8,23 +8,24 @@ function AI:load()
 	self.img = love.graphics.newImage("assets/ai.png")
 	self.width = self.img:getWidth()
 	self.height = self.img:getHeight()
+	self.dc = 0
 	self.x = love.graphics.getWidth() - self.width - 50
 	self.y = love.graphics.getHeight() / 2
 	self.vy = 0
-	self.speed = 200
+	self.speed = 300
 end
 
 function AI:update(dt)
 	self:move(dt)
-	self:check_bounds()
+	self:check_bounds(dt)
 end
 
 function AI:move(dt)
 	self.y = self.y + self.vy * dt
-	self:aquire_target()
+	self:aquire_target(dt)
 end
 
-function AI:check_bounds()
+function AI:check_bounds(dt)
         if self.y < 0 then
                 self.y = 0
         elseif self.y + self.height > love.graphics.getHeight() then
@@ -32,14 +33,15 @@ function AI:check_bounds()
 	end
 end
 
-function AI: aquire_target()
+function AI: aquire_target(dt)
 	if Ball.y - Ball.height < self.y then
-		self.vy = -self.speed
+		self.dy = -self.speed
 	elseif Ball.y > self.y + self.height then
-		self.vy = self.speed
+		self.dy = self.speed
 	else
-		self.vy = 0
+		self.dy = self.dy / 1.2
 	end
+	self.y = self.y + self.dy * dt
 end
 
 function AI:draw()

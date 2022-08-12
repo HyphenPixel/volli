@@ -5,6 +5,7 @@
 Ball = {}
 
 function Ball:load()
+	self.pitch = 1
 	self.x = love.graphics.getWidth() / 2
 	self.y = love.graphics.getHeight() / 2
 	self.img = love.graphics.newImage("assets/ball.png")
@@ -44,6 +45,9 @@ function Ball:collide_player()
                 local collisionPosition = ballMid - playerMid
                 self.vy = collisionPosition * 5
 		self.paddle_plink:play()
+		self.paddle_plink:setPitch(self.pitch)
+		self.pitch = self.pitch + 0.01
+		self.speed = self.speed + 50
         end
 end
 
@@ -55,6 +59,9 @@ function Ball:collide_ai()
                 local collisionPosition = ballMid - aiMid
                 self.vy = collisionPosition * 5
         	self.paddle_plink:play()
+		self.paddle_plink:setPitch(self.pitch)
+		self.pitch = self.pitch + 0.01
+		self.speed = self.speed + 50
 	end
 end
 
@@ -84,6 +91,8 @@ function Ball:score()
 end
 
 function Ball:reset(mod)
+	self.speed = 200
+	self.pitch = 1
 	self.x = love.graphics.getWidth() / 2 - self.width / 2
         self.y = love.graphics.getHeight() / 2 - self.height
         self.vx = self.speed * mod

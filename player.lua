@@ -7,6 +7,7 @@ Player = {}
 function Player:load()
 	self.x = 50
 	self.y = love.graphics.getHeight() / 2
+	self.dy = 0
 	self.img = love.graphics.newImage("assets/player.png")
 	self.width = self.img:getWidth()
 	self.height = self.img:getHeight()
@@ -19,11 +20,23 @@ function Player:update(dt)
 end
 
 function Player:move(dt)
+	local button_pressed = false
+
 	if love.keyboard.isDown("w") then
-                self.y = self.y - self.speed * dt
+		button_pressed = true
+                self.dy = -self.speed
         elseif love.keyboard.isDown("s") then
-                self.y = self.y + self.speed * dt
-        end
+		button_pressed = true
+                self.dy = self.speed
+	else
+		button_pressed = false
+	end
+
+	if not button_pressed then
+		self.dy = self.dy / 1.2
+	end
+
+	self.y = self.y + self.dy * dt
 end
 
 function Player:check_bounds()
