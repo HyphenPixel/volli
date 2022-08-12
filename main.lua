@@ -14,6 +14,10 @@ function love.load()
 end
 
 function love.update(dt)
+	if love.keyboard.isDown("escape") then
+		love.event.quit(0)
+	end
+
 	if game_start then
 		Game:update(dt)
 	else
@@ -26,6 +30,7 @@ function love.draw()
 	if time >= 50 then
 		game_start = true
 	end
+
 	if game_start then
 		Game:draw()
 	else
